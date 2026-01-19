@@ -32,6 +32,13 @@ Criei uma função de limpeza que executa quatro tarefas essenciais:
 * **FastAPI:** Modelo exposto via API REST, pronto para consumo.
 * **Docker:** Containerização para garantir reprodutibilidade total.
 
+## 🚀 Upgrade: Sistema de Recomendação Multi-Variável
+Evolução do algoritmo para considerar não apenas a descrição, mas uma **Sopa de Metadados (Metadata Soup)**:
+- **Elenco:** Extração dos 3 atores principais.
+- **Keywords:** Termos técnicos da trama.
+- **Gêneros:** Categorização cruzada.
+
+**Técnica:** Utilizamos `CountVectorizer` e `Cosine Similarity` para medir a proximidade vetorial entre os filmes, permitindo recomendações muito mais precisas (ex: sugerir outros filmes de piratas com o mesmo estilo de atuação).
 ---
 
 ### 🏗️ Estrutura do Projeto
@@ -67,14 +74,4 @@ docker build -t movie-recommender .
 # Rodar container
 docker run -p 8000:8000 movie-recommender
 Acesse http://localhost:8000/docs para testar as recomendações via Swagger UI.
-
-## 🚀 Upgrade: Sistema de Recomendação Multi-Variável
-Evolução do algoritmo para considerar não apenas a descrição, mas uma **Sopa de Metadados (Metadata Soup)**:
-- **Elenco:** Extração dos 3 atores principais.
-- **Keywords:** Termos técnicos da trama.
-- **Gêneros:** Categorização cruzada.
-
-**Técnica:** Utilizamos `CountVectorizer` e `Cosine Similarity` para medir a proximidade vetorial entre os filmes, permitindo recomendações muito mais precisas (ex: sugerir outros filmes de piratas com o mesmo estilo de atuação).
-
-
 ---
