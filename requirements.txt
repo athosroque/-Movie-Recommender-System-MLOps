@@ -1,0 +1,19 @@
+# Manipulação de Dados
+pandas
+numpy
+
+# Machine Learning e NLP
+scikit-learn
+nltk
+joblib
+
+# MLOps e Versionamento
+mlflow
+dvc
+
+# API e Servidor
+fastapi
+uvicorn
+
+# Utilidades
+kagglehub
