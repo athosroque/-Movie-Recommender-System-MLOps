@@ -1,60 +1,72 @@
-🎬 Movie Recommender System: De Notebook para MLOps
-Este projeto implementa um sistema de recomendação de filmes baseado em conteúdo, transformando um modelo experimental em uma aplicação produtiva e escalável.
+# 🎬 Movie Recommender: Pipeline de NLP e MLOps
 
-📝 Contexto e Metodologia
-A recomendação é baseada na técnica de Content-Based Filtering. Diferente da filtragem colaborativa (que olha para o comportamento de outros usuários), este modelo analisa os atributos dos itens (gêneros, palavras-chave, sinopse) para encontrar similaridades.
+### 📝 Descrição
+Este projeto foca na etapa crítica de **Engenharia de Dados e NLP**, transformando descrições textuais brutas de filmes em dados estruturados. O diferencial é a aplicação de uma infraestrutura robusta de **MLOps**, garantindo que o ciclo de vida do modelo seja automatizado, rastreável e escalável.
 
-Conforme detalhado por Francesco Franco, o processo consiste em:
+---
 
-Vetorização de Texto: Transformar metadados dos filmes em vetores numéricos.
+### 🛠️ Stack Tecnológica
 
-Cosseno de Similaridade: Calcular o ângulo entre vetores para determinar quão próximos dois filmes estão no espaço multidimensional.
+| Categoria | Tecnologias |
+| :--- | :--- |
+| **Linguagem & Dados** | Python, Pandas, NumPy |
+| **NLP** | Regex, NLTK, Tokenização |
+| **MLOps** | DVC (Dados), MLflow (Experimentos) |
+| **Deploy & Infra** | FastAPI, Docker, Kaggle API |
+| **Versão** | Git & GitHub |
 
-🛠️ Engenharia de MLOps
-O diferencial deste repositório é a aplicação de princípios de MLOps para garantir a reprodutibilidade:
+---
 
-Ingestão Automática: Script dedicado para coleta de dados via Kaggle API.
+### 🧠 O que eu desenvolvi?
 
-Versionamento de Dados (DVC): Os dados e modelos não são salvos no Git, mas sim rastreados pelo DVC para evitar repositórios pesados.
+#### **1. Pipeline de Limpeza Modular**
+Criei uma função de limpeza que executa quatro tarefas essenciais:
+* **Tratamento de Integridade:** Validação de tipos para evitar erros com `NaN`.
+* **Limpeza por Regex:** Remoção de ruídos e caracteres especiais.
+* **Normalização:** Conversão para minúsculas e tokenização.
+* **Filtragem Semântica:** Remoção de *Stopwords* para focar no conteúdo relevante.
 
-Experimentos (MLflow): Cada treino gera um log de parâmetros e métricas, permitindo auditar o desempenho do modelo.
+#### **2. Engenharia de MLOps**
+* **DVC (Data Version Control):** Rastreio de dados sem sobrecarregar o Git.
+* **MLflow:** Dashboard para auditoria de métricas e parâmetros.
+* **FastAPI:** Modelo exposto via API REST, pronto para consumo.
+* **Docker:** Containerização para garantir reprodutibilidade total.
 
-Serviço (FastAPI): O modelo é exposto via API REST, pronto para consumo.
+---
 
-Containerização (Docker): Todo o ambiente é isolado, garantindo que o projeto rode em qualquer máquina.
-
-🏗️ Estrutura do Projeto
-Plaintext
-├── data/              # Dados brutos e processados (rastreados pelo DVC)
-├── models/            # Modelos treinados (.pkl)
+### 🏗️ Estrutura do Projeto
+```text
+├── data/               # Dados rastreados pelo DVC
+├── models/             # Artefatos (.pkl) dos modelos
 ├── src/
-│   ├── ingestion.py   # Script de coleta de dados
-│   ├── pipeline.py    # Lógica de pré-processamento e limpeza
-│   └── train.py       # Script de treinamento e log no MLflow
-├── app.py             # API FastAPI para servir recomendações
-├── Dockerfile         # Configuração de containerização
-└── requirements.txt   # Dependências do projeto
+│   ├── ingestion.py    # Coleta via Kaggle API
+│   ├── pipeline.py     # Pré-processamento e limpeza
+│   └── train.py        # Treino e log no MLflow
+├── app.py              # API FastAPI
+├── Dockerfile          # Configuração do Container
+└── requirements.txt    # Dependências
+
 🚀 Como Executar
-1. Requisitos
-Python 3.9+
 
-Docker (opcional)
-
-Kaggle API Token (kaggle.json)
-
-2. Instalação e Treino
+1. Instalação e Treino
 Bash
 # Instalar dependências
 pip install -r requirements.txt
 
-# Baixar dados e treinar o modelo
+# Executar pipeline de dados e treino
 python src/ingestion.py
 python src/train.py
 
-# Iniciar o painel de experimentos
+# Visualizar experimentos
 mlflow ui
-3. Execução via Docker
+2. Execução via Docker
 Bash
+# Build da imagem
 docker build -t movie-recommender .
+
+# Rodar container
 docker run -p 8000:8000 movie-recommender
-Acesse http://localhost:8000/docs para testar as recomendações.
+Acesse http://localhost:8000/docs para testar as recomendações via Swagger UI.
+
+
+---
