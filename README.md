@@ -18,7 +18,33 @@ Utilizamos a **Similaridade de Cosseno** para calcular a proximidade entre o fil
 - **Vetorização**: O pipeline suporta `TF-IDF (Term Frequency-Inverse Document Frequency)`, que penaliza palavras muito comuns e valoriza termos únicos que definem o gênero/nicho do filme.
 
 ---
+## 🧪 Engenharia de MLOps: O Pilares
 
+### 1. Reprodutibilidade de Dados (DVC)
+Arquivos CSV grandes não devem estar no Git. Utilizamos o **DVC (Data Version Control)** para rastrear as versões dos datasets. Isso garante que o modelo treinado hoje use exatamente os mesmos dados se for re-treinado amanhã.
+- Comando: `dvc pull` (para baixar os dados rastreados).
+
+### 2. Rastreamento de Experimentos (MLflow)
+Cada execução do script `train.py` é logada no **MLflow**. 
+- **Parâmetros:** `max_features` da vetorização.
+- **Métricas:** Número de filmes processados.
+- **Artefatos:** A matriz de similaridade gerada.
+Isso permite auditar e comparar diferentes versões do recomendador de forma visual.
+
+### 3. Ambiente Isolado (Docker)
+Para eliminar o clássico "na minha máquina funciona", o projeto é totalmente containerizado. O **Dockerfile** encapsula todas as dependências do sistema e bibliotecas Python.
+
+---
+
+## 🎯 Por que estas escolhas técnicas?
+
+| Componente | Escolha | Motivo (The "Why") |
+| :--- | :--- | :--- |
+| **NLP** | `CountVectorizer` | Para a "Sopa de Metadados", a frequência absoluta de nomes (atores/diretores) é mais relevante que a frequência inversa (TF-IDF). |
+| **Similadidade** | `Cosine Similarity` | Eficiente para comparar vetores de alta dimensão gerados pelo texto. |
+| **Framework** | `FastAPI` | Processamento assíncrono e documentação automática (Swagger) pronta para integração com frontends. |
+
+---
 ## 🏗️ Arquitetura MLOps
 O diferencial deste projeto é o ciclo de vida automatizado:
 
