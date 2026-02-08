@@ -24,10 +24,11 @@ def executar_treinamento():
         print("Limpando textos...")
         df['overview_clean'] = df['overview'].apply(limpar_e_tokenizar)
         
-        # 4. Vetorização
-        max_features = 5000
-        cv = CountVectorizer(max_features=max_features)
-        vetores = cv.fit_transform(df['overview_clean']).toarray()
+        # 4. Vetorização (Upgrade: TF-IDF para melhor relevância semântica)
+        from sklearn.feature_extraction.text import TfidfVectorizer
+        print("Vetorizando com TF-IDF...")
+        tfidf = TfidfVectorizer(max_features=5000)
+        vetores = tfidf.fit_transform(df['overview_clean']).toarray()
         
         # 5. Cálculo de Similaridade
         print("Calculando matriz de similaridade...")
